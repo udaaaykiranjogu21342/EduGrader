@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}
+History Page
+{% endblock title %}
+
+{% block body %}
+  <style>
+    .card {
+        height: auto; /* Adjust height to fit content */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #ddd; /* Add border for better visuals */
+        border-radius: 5px;
+        padding: 10px; /* Padding inside the cards */
+        margin-bottom: 15px; /* Space between cards */
+    }
+
+    .card-content {
+        max-height: 150px; /* Adjust height based on card height */
+        overflow-y: auto; /* Enable vertical scrolling within this container */
+        margin-bottom: 10px; /* Space between content and delete button */
+    }
+
+    /* Hide scroll bars for Webkit browsers */
+    .card-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scroll bars for Firefox */
+    .card-content {
+        scrollbar-width: none; /* Hide scroll bar for Firefox */
+    }
+
+    .delete-button {
+        background-color: #dc3545; /* Bootstrap danger color */
+        color: white;
+        border: none;
+        padding: 5px 10px; /* Shorter padding */
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        width: auto; /* Adjust width as needed */
+        display: inline-block; /* Adjust to fit content */
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    .card-title {
+        font-weight: bold; /* Highlight titles for better readability */
+    }
+  </style>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">History</h1>
+    {% if history %}
+      {% for item in history %}
+      <div class="card">
+        <!-- Question, Answer, Marks, and Feedback displayed once at the top -->
+        <h5 class="card-title">Question</h5>
+        <p class="card-text">{{ item.question }}</p>
+
+        <h5 class="card-title">Answer</h5>
+        <p class="card-text">{{ item.answer }}</p>
+
+        <h5 class="card-title">Marks</h5>
+        <p class="card-text">{{ item.marks }}</p>
+
+        <h5 class="card-title">Feedback</h5>
+        <div class="card-content">
+          <p class="card-text">{{ item.feedback }}</p>
+        </div>
+
+        <!-- Delete Button -->
+        <form action="{{ url_for('delete', qno=item._id) }}" method="post">
+          <button type="submit" class="delete-button">Del</button>
+        </form>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        No history yet.
+      </div>
+    {% endif %}
+  </div>
+{% endblock body %}

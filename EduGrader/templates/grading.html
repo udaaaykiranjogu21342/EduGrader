@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Grading Page
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <form action="/grading" method="post" enctype="multipart/form-data">
+        <h1 class="text-center mt-5">EduGrader</h1>
+        <p><b>Enter your question here!!</b></p>
+        <div class="form-floating mt-2 mb-2">
+            <textarea class="form-control border border-dark" placeholder="Enter your question here to analyze..." id="floatingTextarea1" style="height: 100px" name="question"></textarea>
+        </div>
+        <p><b>Enter your answer here!!</b></p>
+        <div class="form-floating mt-2 mb-2">
+            <textarea class="form-control border border-dark" placeholder="Enter your answer here to analyze..." id="floatingTextarea2" style="height: 250px" name="answer"></textarea>
+        </div>
+
+        <!-- Upload Question Document -->
+        <div class="mb-3">
+            <label for="questionFile" class="form-label"><b>Upload Question Document:</b></label>
+            <input class="form-control border border-dark" type="file" id="questionFile" name="questionFile" accept=".txt,.docx">
+        </div>
+
+        <!-- Upload Answer Document -->
+        <div class="mb-3">
+            <label for="answerFile" class="form-label"><b>Upload Answer Document:</b></label>
+            <input class="form-control border border-dark" type="file" id="answerFile" name="answerFile" accept=".txt,.docx">
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">Analyze</button>
+            <button type="reset" class="btn btn-warning me-3">Clear Inputs</button>
+        </div>
+    </form>
+
+    {% if marks and feedback %}
+        <hr>
+        <h3>Results:</h3>
+        <p><strong>Question:</strong> {{ question }}</p>
+        <p><strong>Answer:</strong> {{ answer }}</p>
+        <p><strong>Grade:</strong> {{ marks }}/10</p>
+        <p><strong>Feedback:</strong> {{ feedback }}</p>
+    {% endif %}
+
+    <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %} -->
+    {% endwith %} 
+</div>
+{% endblock body %}
