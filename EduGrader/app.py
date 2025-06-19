@@ -1,3 +1,4 @@
+#DEMUX HACKATHON 2024
 from flask import Flask, render_template, session, request, flash, redirect, url_for, jsonify
 from flask_session import Session
 import google.generativeai as genai
